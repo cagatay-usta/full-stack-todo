@@ -1,10 +1,10 @@
-import Table from "./Components/Table";
-
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Table />
+    <div className="container-fluid p-4 bg-success vh-100">
+      <h1 className="text-center fw-bold m-4">TODO LIST</h1>
+      <Outlet />
     </div>
   );
 }

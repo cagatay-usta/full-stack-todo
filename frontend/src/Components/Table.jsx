@@ -1,34 +1,70 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Table() {
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState(null);
-
-  // GET http://localhost:8080/api/v1/all
-  useEffect(() => {
-    const getItems = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/api/v1/all");
-        setItems(response.data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    getItems();
-  }, []);
-
-  if (error) return <h1>Network Error {error}</h1>;
+function Table({ items, handleDelete, handleDone }) {
   return (
     <div>
-      {items.map((item) => {
-        return (
-          <ul key={item.id}>
-            <li>{item.title}</li>
-            <li>{`${item.status}`}</li>
-          </ul>
-        );
-      })}
+      <table className="table table-striped table-dark table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item, index) => {
+            return (
+              <tr key={item.id}>
+                <th scope="row">{index}</th>
+                <td
+                  className={`${
+                    item.status ? "text-decoration-line-through" : ""
+                  }`}
+                >
+                  {item.title}
+                </td>
+                <td>{item.status ? "Done" : "Not Done"}</td>
+                <td>
+                  <div className="btn-group btn-group-md">
+                    <button
+                      type="button"
+                      className="btn btn-success "
+                      onClick={() => {
+                        handleDone(item);
+                      }}
+                    >
+                      DONE
+                    </button>
+                    <Link
+                      to={"/update"}
+                      state={item}
+                      className="btn btn-warning "
+                    >
+                      EDIT
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn btn-danger "
+                      onClick={() => {
+                        handleDelete(item.id);
+                      }}
+                    >
+                      DELETE
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="container-fluid text-center">
+        <Link to={"/add"} className="btn btn-primary m-4">
+          Add New Task
+        </Link>
+      </div>
     </div>
   );
 }
