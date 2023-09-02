@@ -1,5 +1,6 @@
-package com.cagatayusta.fullstacktodo.item;
+package com.cagatayusta.fullstacktodo.Repository;
 
+import com.cagatayusta.fullstacktodo.item.Item;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

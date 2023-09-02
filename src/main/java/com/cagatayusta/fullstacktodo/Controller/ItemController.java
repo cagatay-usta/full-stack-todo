@@ -1,5 +1,7 @@
-package com.cagatayusta.fullstacktodo.item;
+package com.cagatayusta.fullstacktodo.Controller;
 
+import com.cagatayusta.fullstacktodo.item.Item;
+import com.cagatayusta.fullstacktodo.Repository.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
